@@ -34,17 +34,11 @@ def load_data():
         return None
     
 csv_data = load_data()
-st.write(csv_data)
+
 
 #Просмотр откорректированного файла
 
 show_data = st.button('Показать данные')
-
-if "show_data_state" not in st.session_state:
-    st.session_state.show_data_state = False
-
-if show_data or st.session_state.show_data_state:
-    st.session_state.show_data_state = True
     
 if show_data == True:
     st.subheader('Загруженные данные')
