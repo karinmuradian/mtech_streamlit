@@ -47,7 +47,7 @@ if show_data or st.session_state.show_data_state:
     
 if show_data == True:
     st.subheader('Загруженные данные')
-    st.dataframe(csv_data)
+    st.write(csv_data)
 
 #Сайтбар с параметрами для выбора
 #Количество дней
