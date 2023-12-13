@@ -18,7 +18,7 @@ st.sidebar.title("Параметры")
 
 def load_data():
     uploaded_file = st.file_uploader(label='**Выберите файл csv**', type = '.csv')
-    if uploaded_file is not None:
+    if uploaded_file:
        
         csv_data = pd.read_csv(uploaded_file,sep=',', encoding = 'cp1251', quoting=3)
         csv_data = csv_data.rename(columns= lambda x: x.replace('"',''))\
