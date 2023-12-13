@@ -9,6 +9,7 @@ from scipy.stats import levene
 from scipy.stats import ttest_ind
 
 
+
 st.title('**Больничные дни сотрудников**')
 st.sidebar.title("Параметры")
 
@@ -39,7 +40,7 @@ csv_data = load_data()
 show_data = st.button('Показать данные')
 if show_data == True:
     st.subheader('Загруженные данные')
-    st.write(csv_data)
+    st.dataframe(csv_data)
 
 #Сайтбар с параметрами для выбора
 #Количество дней
