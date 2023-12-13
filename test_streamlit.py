@@ -12,7 +12,7 @@ from scipy.stats import ttest_ind
 st.title('**Больничные дни сотрудников**')
 st.sidebar.title("Параметры")
 
-@st.cache_data
+@st.cache_data (experimental_allow_widgets=True)
 
 #Загрузка csv файла
 
