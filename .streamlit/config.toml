@@ -1,7 +1,7 @@
 
 [theme]
-base="dark"
-primaryColor="#ad95ad"
-secondaryBackgroundColor="#291d29"
+base="light"
+primaryColor="#FFFFFF"
+secondaryBackgroundColor="#D8BFD8"
 [deprecation]
 showPyplotGlobalUse = false
