@@ -18,20 +18,26 @@ st.sidebar.title("Параметры")
 #Загрузка csv файла
 
 def load_data():
-    uploaded_file = st.file_uploader(label='**Выберите файл csv**', type = ['csv'])
+    if 'ok_a' not in st.session_state:
+           st.session_state.ok_a = False
+
+    with st.expander("Upload A CSV Files"):
     
+        uploaded_file = st.file_uploader(label='**Выберите файл csv**', type = ['csv'])
+
     if uploaded_file is not None:
-       
-        csv_data = pd.read_csv(uploaded_file,sep=',', encoding = 'cp1251', quoting=3)
-        csv_data = csv_data.rename(columns= lambda x: x.replace('"',''))\
-                             .rename(columns= {'Количество больничных дней': 'work_days','Возраст': 'age','Пол':'sex'})
         
-        csv_data['work_days'] = csv_data['work_days'].str.replace('"', '')
-        csv_data['sex'] =csv_data['sex'].str.replace('"', '')
-        csv_data['work_days'] = csv_data['work_days'].astype (str).astype (int)              
-        return csv_data
-    else:
-        return None
+        if not st.session_state.ok_a:
+            with st.spinner("Checking for error log..."):
+                is_error = False
+        
+                if is_error:
+                    st.dataframe(['log A'])
+                else:
+                    st.success("File A uploaded successfully!")
+                    st.session_state.ok_a = True
+        else:
+             st.success("File A uploaded successfully!")
     
 csv_data = load_data()
 
