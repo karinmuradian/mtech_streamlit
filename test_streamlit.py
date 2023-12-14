@@ -23,27 +23,28 @@ def load_data():
     if uploaded_file is not None:
         
         csv_file = pd.read_csv(uploaded_file, sep=',', encoding = 'cp1251', quoting=3)
+        st.dataframe(csv_file)
         return csv_file
     else:
         return None   
 
-def correct_csv(csv_file):
-    csv_file = csv_file.rename(columns= lambda x: x.replace('"',''))\
-                        .rename(columns= {'Количество больничных дней': 'work_days','Возраст': 'age','Пол':'sex'})
+def correct_csv(df):
+    df = df.rename(columns= lambda x: x.replace('"',''))\
+           .rename(columns= {'Количество больничных дней': 'work_days','Возраст': 'age','Пол':'sex'})
                         
-    csv_file['work_days'] = csv_file['work_days'].str.replace('"', '')
-    csv_file['sex'] =csv_file['sex'].str.replace('"', '')
-    csv_file['work_days'] = csv_file['work_days'].astype (str).astype (int)   
-    return csv_file
+    df['work_days'] = df['work_days'].str.replace('"', '')
+    df['sex'] =df['sex'].str.replace('"', '')
+    df['work_days'] = df['work_days'].astype (str).astype (int)   
+    return df
     
-csv_file = load_data()
+csv_df = load_data()
 #Просмотр откорректированного файла
 
 show_data = st.button('Показать данные')
     
 if show_data == True:
     st.subheader('Загруженные данные')
-    csv_data = correct_csv(csv_file)
+    csv_data = correct_csv(csv_df)
     st.write(csv_data)
 
 #Сайтбар с параметрами для выбора
