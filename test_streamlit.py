@@ -33,8 +33,6 @@ def load_data():
         return csv_data
     else:
         return None   
-    
-csv_data = load_data()
 
 
 #Просмотр откорректированного файла
@@ -43,6 +41,7 @@ show_data = st.button('Показать данные')
     
 if show_data == True:
     st.subheader('Загруженные данные')
+    csv_data = load_data()
     st.write(csv_data)
 
 #Сайтбар с параметрами для выбора
