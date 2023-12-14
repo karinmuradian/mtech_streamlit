@@ -14,7 +14,6 @@ st.sidebar.title("Параметры")
 #Загрузка csv файла
 
 def load_data():
-    uploaded_file = st.empty()
     uploaded_file = st.file_uploader(label='**Выберите файл csv**', type = ['csv'])
 
     if  uploaded_file is not None:
