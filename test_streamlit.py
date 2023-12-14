@@ -53,8 +53,8 @@ if show_work_days:
 
 choose_age = st.sidebar.checkbox('Выбрать возраст')
 if choose_age:
-    min_age= csv_df['age'].min()
-    max_age= csv_df['age'].max()
+    min_age= csv_data['age'].min()
+    max_age= csv_data['age'].max()
     min_age, max_age = st.sidebar.slider("Возраст", min_value=min_age, max_value=max_age, value=[min_age, max_age])
     csv_data = csv_data[(csv_data['age'] >= min_age) & (csv_data['age']  <= max_age)]
 
