@@ -27,8 +27,6 @@ def load_data():
         csv_data['work_days'] = csv_data['work_days'].astype (str).astype (int)   
 
         return csv_data
-    else:
-        return None
    
 
 csv_df= load_data()
