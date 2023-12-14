@@ -9,7 +9,6 @@ from scipy.stats import levene
 st.title('**Больничные дни сотрудников**')
 st.sidebar.title("Параметры")
 
-@st.cache_data(experimental_allow_widgets=True)
 
 #Загрузка csv файла
 
