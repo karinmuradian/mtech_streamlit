@@ -44,7 +44,7 @@ show_data = st.button('Показать данные')
 if show_data == True:
     st.subheader('Загруженные данные')
     csv_data = correct_csv(csv_df)
-    st.write(csv_data)
+    st.write(csv_df)
 
 #Сайтбар с параметрами для выбора
 #Количество дней
