@@ -30,9 +30,6 @@ def load_data():
 
 csv_df= load_data()
   
-st.session_state['csv_df'] = csv_df
-st.dataframe(csv_df)
-
 #Просмотр откорректированного файла
 show_data = st.button('Показать данные')
 if show_data == True:
