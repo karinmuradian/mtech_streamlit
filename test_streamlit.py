@@ -18,39 +18,27 @@ st.sidebar.title("Параметры")
 #Загрузка csv файла
 
 def load_data():
+    uploaded_file = st.empty()
     uploaded_file = st.file_uploader(label='**Выберите файл csv**', type = ['csv'])
 
-    if uploaded_file is not None:
-        csv_file = uploaded_file.get_value()
-        st.dataframe(csv_file)
-        return pd.read_csv(io.BytesIO(csv_file), sep=',', encoding = 'cp1251', quoting=3)
+    if  uploaded_file is not None:
+
+        csv_data = pd.read_csv(uploaded_file, sep=',', encoding = 'cp1251', quoting=3)
+        csv_data = csv_data.rename(columns= lambda x: x.replace('"',''))\
+                            .rename(columns= {'Количество больничных дней': 'work_days','Возраст': 'age','Пол':'sex'})
+                            
+        csv_data['work_days'] = csv_data['work_days'].str.replace('"', '')
+        csv_data['sex'] =csv_data['sex'].str.replace('"', '')
+        csv_data['work_days'] = csv_data['work_days'].astype (str).astype (int)   
+
+        return csv_data
     else:
-        return None   
+        return None
+   
 
-def correct_csv(df):
-    df = df.rename(columns= lambda x: x.replace('"',''))\
-           .rename(columns= {'Количество больничных дней': 'work_days','Возраст': 'age','Пол':'sex'})
-                        
-    df['work_days'] = df['work_days'].str.replace('"', '')
-    df['sex'] =df['sex'].str.replace('"', '')
-    df['work_days'] = df['work_days'].astype (str).astype (int)   
-    return df
-    
-csv_df = load_data()
-#Просмотр откорректированного файла
+csv_data = load_data()
+st.dataframe(csv_data)
 
-show_data = st.button('Показать данные')
-
-if "show_data_state" not in st.session_state:
-    st.session_state.show_data_state = False
-
-if show_data or st.session_state.show_data_state:
-    st.session_state.show_data_state = True
-
-if show_data == True:
-    st.subheader('Загруженные данные')
-    csv_data = correct_csv(csv_df)
-    st.write(csv_df)
 
 #Сайтбар с параметрами для выбора
 #Количество дней
