@@ -36,7 +36,7 @@ csv_df= load_data()
 if 'csv_df' not in st.session_state:    
     st.session_state['csv_df'] = csv_df
 
-st.write(st.session_state.csv_df)
+st.write(csv_df)
 
 #Просмотр откорректированного файла
 show_data = st.button('Показать данные')
