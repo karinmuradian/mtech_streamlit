@@ -21,9 +21,9 @@ def load_data():
     uploaded_file = st.file_uploader(label='**Выберите файл csv**', type = ['csv'])
 
     if uploaded_file is not None:
-        
-        csv_file = pd.read_csv(uploaded_file, sep=',', encoding = 'cp1251', quoting=3)
-        return st.dataframe(csv_file)
+        csv_file = uploaded_file.get_value()
+        st.dataframe(csv_file)
+        return pd.read_csv(io.BytesIO(csv_file), sep=',', encoding = 'cp1251', quoting=3)
     else:
         return None   
 
