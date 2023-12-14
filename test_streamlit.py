@@ -4,14 +4,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import levene
-
-
-
+ 
 
 st.title('**Больничные дни сотрудников**')
 st.sidebar.title("Параметры")
 
-@st.cache_data (experimental_allow_widgets=True)
+@st.cache_data(experimental_allow_widgets=True)
 
 #Загрузка csv файла
 
@@ -34,8 +32,15 @@ def load_data():
         return None
    
 
-csv_data = load_data()
-st.dataframe(csv_data)
+csv_df= load_data()
+
+
+#Просмотр откорректированного файла
+show_data = st.button('Показать данные')
+if show_data == True:
+    st.subheader('Загруженные данные')
+    st.dataframe(csv_df)
+
 
 
 #Сайтбар с параметрами для выбора
@@ -44,19 +49,19 @@ st.dataframe(csv_data)
 show_work_days = st.sidebar.checkbox('Выбрать количество дней')
 
 if show_work_days:
-    min_work_days = csv_data['work_days'].min()
-    max_work_days = csv_data['work_days'].max()
+    min_work_days = csv_df['work_days'].min()
+    max_work_days = csv_df['work_days'].max()
     min_work_days, max_work_day = st.sidebar.slider("Больничные дни", min_value=min_work_days, max_value=max_work_days, value=[min_work_days, max_work_days])
-    csv_data = csv_data[(csv_data['work_days'] >= min_work_days) & (csv_data['work_days']  <= max_work_days)]
+    csv_data = csv_df[(csv_df['work_days'] >= min_work_days) & (csv_df['work_days']  <= max_work_days)]
 
 #Возраст
 
 choose_age = st.sidebar.checkbox('Выбрать возраст')
 if choose_age:
-    min_age= csv_data['age'].min()
-    max_age= csv_data['age'].max()
+    min_age= csv_df['age'].min()
+    max_age= csv_df['age'].max()
     min_age, max_age = st.sidebar.slider("Возраст", min_value=min_age, max_value=max_age, value=[min_age, max_age])
-    csv_data = csv_data[(csv_data['age'] >= min_age) & (csv_data['age']  <= max_age)]
+    csv_data = csv_df[(csv_df['age'] >= min_age) & (csv_df['age']  <= max_age)]
 
 #Графики
 
@@ -65,8 +70,8 @@ show_age = st.sidebar.checkbox('Визуализировать данные по
 
 if show_age == True:
     st.subheader('Возраст')
-    sns.distplot(csv_data.query('age >= 35').work_days, color = '#8B4513')
-    sns.distplot(csv_data.query('age < 35').work_days, color = '#4B0082')
+    sns.distplot(csv_df.query('age >= 35').work_days, color = '#8B4513')
+    sns.distplot(csv_df.query('age < 35').work_days, color = '#4B0082')
     sns.despine()
     st.pyplot()
 
@@ -74,8 +79,8 @@ show_sex = st.sidebar.checkbox('Визуализировать распреде�
 
 if show_sex == True:
    st.subheader('Пол')
-   sns.distplot(csv_data.query('sex == "Ж"').work_days, color = '#CD853F' )
-   sns.distplot(csv_data.query('sex == "М"').work_days, color = '#BA55D3')  
+   sns.distplot(csv_df.query('sex == "Ж"').work_days, color = '#CD853F' )
+   sns.distplot(csv_df.query('sex == "М"').work_days, color = '#BA55D3')  
 
    st.pyplot()
 
@@ -88,8 +93,8 @@ show_levene_sex = st.button('Тест Левене ("sex")')
 if show_levene_sex:
     st.subheader('Значение P-value')
     
-    m_work_days =csv_data[csv_data['sex'] == "М"].sample(30)['work_days']
-    w_work_days =csv_data[csv_data['sex'] == "Ж"].sample(30)['work_days']
+    m_work_days =csv_df[csv_df['sex'] == "М"].sample(30)['work_days']
+    w_work_days =csv_df[csv_df['sex'] == "Ж"].sample(30)['work_days']
 
     st.write(levene(m_work_days, w_work_days, center = 'mean'))
 
@@ -98,7 +103,7 @@ show_levene_age= st.button('Тест Левене ("age")')
 if show_levene_age:
     st.subheader('Значение P-value')
 
-    older_work_days =csv_data[csv_data['age'] >= 35].sample(20)['work_days'] 
-    younger_work_days =csv_data[csv_data['age'] < 35].sample(20)['work_days']
+    older_work_days =csv_df[csv_df['age'] >= 35].sample(20)['work_days'] 
+    younger_work_days =csv_df[csv_df['age'] < 35].sample(20)['work_days']
 
     st.write(levene(older_work_days, younger_work_days , center = 'mean'))
