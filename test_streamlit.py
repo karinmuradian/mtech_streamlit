@@ -23,8 +23,7 @@ def load_data():
     if uploaded_file is not None:
         
         csv_file = pd.read_csv(uploaded_file, sep=',', encoding = 'cp1251', quoting=3)
-        st.dataframe(csv_file)
-        return csv_file
+        return st.dataframe(csv_file)
     else:
         return None   
 
