@@ -35,7 +35,8 @@ def correct_csv(csv_file):
     csv_file['sex'] =csv_file['sex'].str.replace('"', '')
     csv_file['work_days'] = csv_file['work_days'].astype (str).astype (int)   
     return csv_file
-
+    
+csv_file = load_data()
 #Просмотр откорректированного файла
 
 show_data = st.button('Показать данные')
