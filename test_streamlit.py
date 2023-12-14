@@ -1,12 +1,10 @@
-import io
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from scipy.stats import binom_test
-from scipy.stats import shapiro
 from scipy.stats import levene
-from scipy.stats import ttest_ind
+
 
 
 
